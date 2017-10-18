@@ -1,0 +1,28 @@
+version: '2'
+services:
+ postgres:
+  build: ./postgres
+  volumes:
+    - ./dockerfiles/postgresql:/var/lib/postgresql
+  network_mode: "service:nginx"
+
+ django:
+  build: .
+  environment:
+    - STATIC_ROOT:/media/ismirsnp/ismirsnp_static
+    - MEDIA_ROOT:/media/ismirsnp/ismirsnp_media
+  #command: python manage.py runserver 0.0.0.0:8000
+  #command: uwsgi --http :8001 --module ismirsnp.wsgi
+  command: uwsgi --ini uwsgi.ini
+  volumes:
+   - ./ismirsnp:/ismirsnp
+   - ./dockerfiles:/media/ismirsnp
+  network_mode: "service:nginx"
+
+ nginx:
+  build: ./nginx
+  ports:
+   - "443:443" # for nginx
+   - "5432:5432" # for postgres
+  volumes:
+   - ./dockerfiles/static:/media
