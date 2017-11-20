@@ -2,6 +2,10 @@ version: '2'
 services:
  postgres:
   build: ./postgres
+  environment:
+    - POSTGRES_DB=mirsnpeffect
+    - POSTGRES_PASSWORD=docker
+    - POSTGRES_USER=docker
   volumes:
     - ./dockerfiles/postgresql:/var/lib/postgresql
   network_mode: "service:nginx"
@@ -9,20 +13,20 @@ services:
  django:
   build: .
   environment:
-    - STATIC_ROOT:/media/ismirsnp/ismirsnp_static
-    - MEDIA_ROOT:/media/ismirsnp/ismirsnp_media
+    - STATIC_ROOT:/media/mirsnpeffect/mirsnpeffect_static
+    - MEDIA_ROOT:/media/mirsnpeffect/mirsnpeffect_media
   #command: python manage.py runserver 0.0.0.0:8000
   #command: uwsgi --http :8001 --module ismirsnp.wsgi
   command: uwsgi --ini uwsgi.ini
   volumes:
-   - ./ismirsnp:/ismirsnp
-   - ./dockerfiles:/media/ismirsnp
+   - ./mirsnpeffect:/mirsnpeffect
+   - ./dockerfiles:/media/mirsnpeffect
   network_mode: "service:nginx"
 
  nginx:
   build: ./nginx
   ports:
-   - "443:443" # for nginx
-   - "5432:5432" # for postgres
+   - "447:443" # for nginx
+   - "5437:5432" # for postgres
   volumes:
-   - ./dockerfiles/static:/media
+   - ./dockerfiles:/media/mirsnpeffect

@@ -1,3 +1,6 @@
-Django
-psycopg2
+Django==1.11.6
+django-extensions
+psycopg2==2.6
 uwsgi
+django-crispy-forms
+ipython[notebook]==3.2.1

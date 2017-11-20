@@ -5,8 +5,8 @@ RUN apt-get update && apt-get install -qq -y \
     python-dev
 
 # add requirements and install first for caching purposes
-ADD ./requirements.txt /ismirsnp/
-WORKDIR /ismirsnp
+ADD ./requirements.txt /mirsnpeffect/
+WORKDIR /mirsnpeffect
 RUN pip install -r requirements.txt
 
 EXPOSE 8001
