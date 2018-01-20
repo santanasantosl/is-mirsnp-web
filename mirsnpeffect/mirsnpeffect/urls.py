@@ -23,6 +23,8 @@ from web import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='Home'),
+    url(r'^job/(?P<jobid>\d+)/$', views.job, name='Job'),
+    url(r'^download/$', views.download, name='Download'),
 ]
 
 if settings.DEBUG:
