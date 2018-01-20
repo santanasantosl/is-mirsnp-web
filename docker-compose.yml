@@ -13,6 +13,7 @@ services:
  django:
   build: .
   environment:
+    - DJANGO_SETTINGS_MODULE=mirsnpeffect.settings
     - STATIC_ROOT:/media/mirsnpeffect/mirsnpeffect_static
     - MEDIA_ROOT:/media/mirsnpeffect/mirsnpeffect_media
   #command: python manage.py runserver 0.0.0.0:8000

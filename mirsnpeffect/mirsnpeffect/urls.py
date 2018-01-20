@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from web import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.home, name='Home'),
 ]
+
+if settings.DEBUG:
+    """
+This helper function should not be used in production, See also:
+https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#django.contrib.staticfiles.urls.staticfiles_urlpatterns
+    """
+    urlpatterns += staticfiles_urlpatterns()
