@@ -230,5 +230,5 @@ def compile_refseq_gene(dir):
 
 if __name__ == "__main__":
 
-    #load_genomic_data(settings.MEDIA_ROOT, 'hg19')
+    load_genomic_data(settings.MEDIA_ROOT, 'hg19')
     load_3utr_data(settings.MEDIA_ROOT)
