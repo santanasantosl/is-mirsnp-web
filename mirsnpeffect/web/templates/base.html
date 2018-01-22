@@ -17,13 +17,13 @@
             crossorigin="anonymous"></script>
 
     <!-- Custom styles for this template -->
-    <link href="offcanvas.css" rel="stylesheet">
+    <link href="static/css/offcanvas.css" rel="stylesheet">
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">miRSnpEffect</a>
+    <a class="navbar-brand" href="/">miRSnpEffect</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,47 +32,19 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Job Results<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/job">Job Results<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Download<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/download">Download<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
 </nav>
-
-<main role="main" class="container">
-    <div class="row row-offcanvas row-offcanvas-right">
-
-        <div class="col-12 col-md-9">
-            <p class="float-right d-md-none">
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
-            </p>
-            <div class="jumbotron">
-                <h1>MirSNPEffect</h1>
-                <p>An algorithm for the prediction of 3'UTR SNPs on miRNA binding.</p>
-                <p>Please cite: XXXX if using our algorithm.</p>
-            </div>
-            <div class="row">
-                <div class="col-10 col-lg-12">
-                    <h2>Search for the effect of SNPs on miRNA binding</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                        magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-secondary" href="#" role="button">Search &raquo;</a></p>
-                </div><!--/span-->
-            </div><!--/row-->
-        </div><!--/span-->
-
-    </div><!--/row-->
-
-    <hr>
-
-</main><!--/.container-->
-
+{% block content %}
+{% endblock %}
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -84,6 +56,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="static/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="/static/js/offcanvas.js"></script>
 </body>
 </html>

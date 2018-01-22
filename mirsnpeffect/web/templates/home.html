@@ -8,6 +8,47 @@
 
 {% block content %}
 
-    <h1>Welcome to MirSNPEffect</h1></br>
-    <p> </p>
+<main role="main" class="container">
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-12 col-md-9">
+            <p class="float-right d-md-none">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron", style="margin-top: 3%">
+                <h1>MirSNPEffect</h1>
+                <p>An algorithm for the prediction of 3'UTR SNPs on miRNA binding.</p>
+                <p>Please cite: XXXX if using our algorithm.</p>
+            </div>
+            <div class="row">
+                <div class="col-10 col-lg-12">
+                    <h2>Search for the effect of SNPs in miRNA binding</h2>
+                    <form class="form-group" action="/search/" method="post">
+                        {% csrf_token %}
+                        <label for="searchbox">Please, enter SNP ids one per line:</label>
+                        <textarea class="form-control" rows="5", id="searchbox", name="searchbox"></textarea>
+                        <br>
+                        <input class="btn btn-secondary" type="submit" value="Search &raquo;">
+                        <input class="btn btn-secondary" value="Example &raquo;" onclick="populateWithExample()">
+                    </form>
+
+                </div><!--/span-->
+            </div><!--/row-->
+        </div><!--/span-->
+
+    </div><!--/row-->
+
+</main><!--/.container-->
+
+
+<script> function populateWithExample() {
+    var txt='rs5186\nrs7911488\nrs2239680\nrs1434536\nrs2240688\nrs9341070\nrs1063320' +
+        '\nrs56109847\nrs709805\nrs1058205\nrs4245739\nrs12537\nrs3134615\nrs2735383' +
+        '\nrs354476\nrs6573\nrs465646\nrs16917496\nrs334348\nrs8126\nrs115160714' +
+        '\nrs1010\nrs1046322\nrs9457';
+    document.getElementById("searchbox").value=txt;
+    }
+</script>
 {%  endblock %}
+
+<!--<textarea class="form-control" rows="5" id="search-input"></textarea>-->

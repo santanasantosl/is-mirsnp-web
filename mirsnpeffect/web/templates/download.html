@@ -7,7 +7,23 @@
 {% endblock %}
 
 {% block content %}
+<main role="main" class="container">
+    <div class="row row-offcanvas row-offcanvas-right">
 
-    <h1>Download Page</h1></br>
-    <p> </p>
+        <div class="col-12 col-md-9">
+            <p class="float-right d-md-none">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron" style="background: white;margin-top: 3%">
+                <h1>Downloads</h1>
+                <p>Source code</p>
+                <p>Distributions</p>
+                {{ form_data }}
+            </div>
+        </div><!--/span-->
+
+    </div><!--/row-->
+
+</main><!--/.container-->
+
 {%  endblock %}

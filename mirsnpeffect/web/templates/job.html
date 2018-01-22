@@ -8,6 +8,16 @@
 
 {% block content %}
 
-    <h1>Welcome to MirSNPEffect</h1></br>
-    <p> </p>
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-12 col-md-9">
+            <p class="float-right d-md-none">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron" style="background: white;margin-top: 3%">
+                {{ form_data }}
+            </div>
+        </div><!--/span-->
+
+    </div><!--/row-->
 {%  endblock %}
