@@ -15,7 +15,14 @@
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
             </p>
             <div class="jumbotron" style="background: white;margin-top: 3%">
-                {{ form_data }}
+                {% if snps_not_in_database %}
+                    <h1>The following SNPs have no record in the database:</h1>
+                    {% for snp_not_in_db in snps_not_in_database %}
+                        {{snp_not_in_db}}
+                    {% endfor %}
+                {% endif %}
+
+
             </div>
         </div><!--/span-->
 

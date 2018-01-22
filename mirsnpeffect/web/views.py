@@ -22,14 +22,13 @@ def download(request):
 def search(request):
 
     template = 'job.html'
-    context = locals()
-    if request.method == 'POST':
-        snps_not_in_database = []
-        snps_outside_utr3 = []
-        significant_predictions = []
-        non_significant_predictions = []
-        snps_without_predictions = []
+    snps_not_in_database = []
+    snps_outside_utr3 = []
+    significant_predictions = []
+    non_significant_predictions = []
+    snps_without_predictions = []
 
+    if request.method == 'POST':
         form_data = request.POST.get('searchbox')
         split_data = form_data.split('\n')
         for rsid in split_data:
@@ -51,7 +50,13 @@ def search(request):
                                 non_significant_predictions.append(prediction)
                     else:
                         snps_without_predictions.append(variant)
-        return render(request, template, context)
+
     else:
         form_data = 'No prediction were found for the submitted list of SNPs. Please, check your input'
-        return render(request, template, context)
+
+    context = {'snps_not_in_database': snps_not_in_database,
+               'snps_outside_utr3': snps_outside_utr3,
+               'snps_without_predictions': snps_without_predictions,
+               'significant_predictions': significant_predictions,
+               'non_significant_predictions': non_significant_predictions}
+    return render(request, template, context)
