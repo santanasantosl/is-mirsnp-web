@@ -81,6 +81,8 @@ class Variant(models.Model):
     end_pos = models.PositiveIntegerField()
     ref = models.CharField(max_length=30)
     alt = models.CharField(max_length=30)
+    gene = models.ForeignKey(Gene, null=True)
+    annotation = models.ForeignKey(TranscriptAnnotation, null=True)
     ## Strand
     strand = models.CharField(max_length=1, null=True)
     rsid = models.CharField(max_length=30, null=True)
