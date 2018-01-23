@@ -61,6 +61,7 @@ class Mirbase(models.Model):
 
 
 class MiRNA(models.Model):
+    name = models.CharField(max_length=50)
     chr = models.CharField(max_length=5)
     start_pos = models.PositiveIntegerField()
     end_pos = models.PositiveIntegerField()

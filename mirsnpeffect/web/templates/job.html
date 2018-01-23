@@ -15,16 +15,120 @@
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
             </p>
             <div class="jumbotron" style="background: white;margin-top: 3%">
-                {% if snps_not_in_database %}
-                    <h1>The following SNPs have no record in the database:</h1>
-                    {% for snp_not_in_db in snps_not_in_database %}
-                        {{snp_not_in_db}}
-                    {% endfor %}
-                {% endif %}
+                {% if error_data %}
+                    <h1>An error has ocurred, please try resubmitting you data here.</h1>
 
+                {% else %}
+                    {% if snps_not_in_database|length > 1 %}
+                        <h1>The following SNPs have no record in the database:</h1>
+                        {% for snp_not_in_db in snps_not_in_database %}
+                            {{snp_not_in_db}}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if snps_outside_utr3|length > 1%}
+                        <h1>The following SNPs have are not in 3UTR:</h1>
+                        {% for snp_not_in_utr3 in snps_outside_utr3 %}
+                            {{snp_not_in_utr3}}
+                        {% endfor %}
+                    {% endif %}
+
+                     {% if snps_outside_utr3|length > 1%}
+                        <h1>The following SNPs have are not in 3UTR:</h1>
+                        {% for snp_not_in_utr3 in snps_outside_utr3 %}
+                            {{snp_not_in_utr3}}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if significant_predictions|length > 1%}
+                        <h1>Significant predictions:</h1>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">SNP_ID</th>
+                                <th scope="col">CHROM</th>
+                                <th scope="col">REF</th>
+                                <th scope="col">ALT</th>
+                                <th scope="col">MIRNA</th>
+                                <th scope="col">REF_MFE</th>
+                                <th scope="col">REF_MFE_PVAL</th>
+                                <th scope="col">ALT_MFE</th>
+                                <th scope="col">ALT_MFE_PVAL</th>
+                                <th scope="col">PVAL_LOG_RATIO</th>
+                                <th scope="col">PVAL_OF_LOG_RATIO</th>
+                                <th scope="col">TYPE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for significant_prediction in significant_predictions %}
+                                <tr>
+                                    <td>{{significant_prediction.variant.rsid}}</td>
+                                    <td>{{significant_prediction.variant.chr}}</td>
+                                    <td>{{significant_prediction.variant.ref}}</td>
+                                    <td>{{significant_prediction.variant.alt}}</td>
+                                    <td>{{significant_prediction.mirna.name}}</td>
+                                    <td>{{significant_prediction.ref_mfe|floatformat:4}}</td>
+                                    <td>{{significant_prediction.ref_mfe_pval|floatformat:4}}</td>
+                                    <td>{{significant_prediction.alt_mfe|floatformat:4}}</td>
+                                    <td>{{significant_prediction.alt_mfe_pval|floatformat:4}}</td>
+                                    <td>{{significant_prediction.pval_log_ratio|floatformat:4}}</td>
+                                    <td>{{significant_prediction.log_ratio_pval|floatformat:4}}</td>
+                                    <td>{{significant_prediction.type}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+
+                    {% if non_significant_predictions|length > 1%}
+                        <h1>Non-Significant predictions:</h1>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">SNP_ID</th>
+                                <th scope="col">CHROM</th>
+                                <th scope="col">REF</th>
+                                <th scope="col">ALT</th>
+                                <th scope="col">MIRNA</th>
+                                <th scope="col">REF_MFE</th>
+                                <th scope="col">REF_MFE_PVAL</th>
+                                <th scope="col">ALT_MFE</th>
+                                <th scope="col">ALT_MFE_PVAL</th>
+                                <th scope="col">PVAL_LOG_RATIO</th>
+                                <th scope="col">PVAL_OF_LOG_RATIO</th>
+                                <th scope="col">TYPE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for non_significant_prediction in non_significant_predictions %}
+                                <tr>
+                                    <td>{{non_significant_prediction.variant.rsid}}</td>
+                                    <td>{{non_significant_prediction.variant.chr}}</td>
+                                    <td>{{non_significant_prediction.variant.ref}}</td>
+                                    <td>{{non_significant_prediction.variant.alt}}</td>
+                                    <td>{{non_significant_prediction.mirna.name}}</td>
+                                    <td>{{non_significant_prediction.ref_mfe|floatformat:4}}</td>
+                                    <td>{{non_significant_prediction.ref_mfe_pval|floatformat:4}}</td>
+                                    <td>{{non_significant_prediction.alt_mfe|floatformat:4}}</td>
+                                    <td>{{non_significant_prediction.alt_mfe_pval|floatformat:4}}</td>
+                                    <td>{{non_significant_prediction.pval_log_ratio|floatformat:4}}</td>
+                                    <td>{{non_significant_prediction.log_ratio_pval|floatformat:4}}</td>
+                                    <td>{{non_significant_prediction.type}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+
+                {% endif %}
 
             </div>
         </div><!--/span-->
 
     </div><!--/row-->
 {%  endblock %}
+
+'snps_outside_utr3': snps_outside_utr3,
+               'snps_without_predictions': snps_without_predictions,
+               'significant_predictions': significant_predictions,
+               'non_significant_predictions': non_significant_predictions,

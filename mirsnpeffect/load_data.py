@@ -228,7 +228,45 @@ def compile_refseq_gene(dir):
     return gene_refseq
 
 
+def load_mirna(mirna_gff, mirbase_version):
+
+    try:
+        mirbase = Mirbase.objects.get(version=mirbase_version)
+    except:
+        mirbase = Mirbase(version=mirbase_version)
+        mirbase.save()
+
+    mirna_gff_fh = open(mirna_gff)
+    for line in mirna_gff_fh:
+        line = line.strip()
+        if not re.search('^#', line):
+            fields = line.split('\t')
+            chrom = fields[0]
+            start = fields[3]
+            end = fields[4]
+            strand = fields[6]
+            id = fields[8].split(';')[0].replace('ID=', '')
+            name = fields[8].split(';')[2].replace('Name=', '')
+
+            try:
+                mirna = MiRNA.objects.get(mirbase_version=mirbase,
+                                          mirbase_acc=id)
+            except:
+                mirna = MiRNA(mirbase_version=mirbase,
+                              mirbase_acc=id,
+                              chr=chrom,
+                              start_pos=int(start),
+                              end_pos=int(end),
+                              strand=strand,
+                              name=name)
+                mirna.save()
+
+            print mirna.id
+            print mirna.name
+
+
 if __name__ == "__main__":
 
-    load_genomic_data(settings.MEDIA_ROOT, 'hg19')
-    load_3utr_data(settings.MEDIA_ROOT)
+    #load_genomic_data(settings.MEDIA_ROOT, 'hg19')
+    #load_3utr_data(settings.MEDIA_ROOT)
+    load_mirna(os.path.join(settings.MEDIA_ROOT, 'hsa.gff3'), '21')

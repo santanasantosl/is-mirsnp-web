@@ -27,36 +27,34 @@ def search(request):
     significant_predictions = []
     non_significant_predictions = []
     snps_without_predictions = []
+    error_data =False
 
     if request.method == 'POST':
         form_data = request.POST.get('searchbox')
         split_data = form_data.split('\n')
         for rsid in split_data:
+            rsid = rsid.strip()
             variant = Variant.objects.filter(rsid=rsid)
             if variant.count() == 0:
                 snps_not_in_database.append(rsid)
             else:
-                variant = Variant.objects.filter(rsid=rsid, annotation__region='UTR3')
-                if len(variant) == 0:
-                    snps_outside_utr3.append(variant)
-
+                predictions = Prediction.objects.filter(variant=variant).order_by('variant__rsid')
+                if len(predictions) > 0:
+                    for prediction in predictions:
+                        if prediction.is_significant:
+                            significant_predictions.append(prediction)
+                        else:
+                            non_significant_predictions.append(prediction)
                 else:
-                    predictions = Prediction.objects.filter(variant=variant, is_signficant=True)
-                    if len(predictions) > 0:
-                        for prediction in predictions:
-                            if prediction.is_significant:
-                                significant_predictions.append(prediction)
-                            else:
-                                non_significant_predictions.append(prediction)
-                    else:
-                        snps_without_predictions.append(variant)
+                    snps_without_predictions.append(variant)
 
     else:
-        form_data = 'No prediction were found for the submitted list of SNPs. Please, check your input'
+        error_data = True
 
     context = {'snps_not_in_database': snps_not_in_database,
                'snps_outside_utr3': snps_outside_utr3,
                'snps_without_predictions': snps_without_predictions,
                'significant_predictions': significant_predictions,
-               'non_significant_predictions': non_significant_predictions}
+               'non_significant_predictions': non_significant_predictions,
+               'error_data': error_data}
     return render(request, template, context)
