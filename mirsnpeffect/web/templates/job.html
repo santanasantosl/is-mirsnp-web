@@ -25,6 +25,7 @@
                     <h1>An error has ocurred, please try resubmitting you data here.</h1>
 
                 {% else %}
+                <a href={{results_link}}>Results Download</a>
                     {% if snps_not_in_database|length > 1 %}
                         <h1>The following SNPs have no record in the database:</h1>
                         {% for snp_not_in_db in snps_not_in_database %}
