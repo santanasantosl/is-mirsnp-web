@@ -4,6 +4,12 @@
 
     <title>MirSNPEffect</title>
 
+    <script>
+    $(function(){
+    $("#jobResultsPositive").tablesorter();
+    });
+    </script>
+
 {% endblock %}
 
 {% block content %}
@@ -42,38 +48,30 @@
 
                     {% if significant_predictions|length > 1%}
                         <h1>Significant predictions:</h1>
-                        <table class="table table-bordered">
+                        <table id="jobResultsPositive" class="tablesorter table table-bordered">
                             <thead>
                             <tr>
                                 <th scope="col">SNP_ID</th>
-                                <th scope="col">CHROM</th>
                                 <th scope="col">REF</th>
                                 <th scope="col">ALT</th>
                                 <th scope="col">MIRNA</th>
                                 <th scope="col">REF_MFE</th>
-                                <th scope="col">REF_MFE_PVAL</th>
                                 <th scope="col">ALT_MFE</th>
-                                <th scope="col">ALT_MFE_PVAL</th>
                                 <th scope="col">PVAL_LOG_RATIO</th>
                                 <th scope="col">PVAL_OF_LOG_RATIO</th>
-                                <th scope="col">TYPE</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for significant_prediction in significant_predictions %}
                                 <tr class="text-warning">
                                     <td>{{significant_prediction.variant.rsid}}</td>
-                                    <td>{{significant_prediction.variant.chr}}</td>
                                     <td>{{significant_prediction.variant.ref}}</td>
                                     <td>{{significant_prediction.variant.alt}}</td>
                                     <td>{{significant_prediction.mirna.name}}</td>
                                     <td>{{significant_prediction.ref_mfe|floatformat:4}}</td>
-                                    <td>{{significant_prediction.ref_mfe_pval|floatformat:4}}</td>
                                     <td>{{significant_prediction.alt_mfe|floatformat:4}}</td>
-                                    <td>{{significant_prediction.alt_mfe_pval|floatformat:4}}</td>
                                     <td>{{significant_prediction.pval_log_ratio|floatformat:4}}</td>
                                     <td>{{significant_prediction.log_ratio_pval|floatformat:4}}</td>
-                                    <td>{{significant_prediction.type}}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -82,38 +80,30 @@
 
                     {% if non_significant_predictions|length > 1%}
                         <h1>Non-Significant predictions:</h1>
-                        <table class="table table-bordered">
+                        <table id="jobResultsNegative" class="tabesorter table table-bordered">
                             <thead>
                             <tr>
                                 <th scope="col">SNP_ID</th>
-                                <th scope="col">CHROM</th>
                                 <th scope="col">REF</th>
                                 <th scope="col">ALT</th>
                                 <th scope="col">MIRNA</th>
                                 <th scope="col">REF_MFE</th>
-                                <th scope="col">REF_MFE_PVAL</th>
                                 <th scope="col">ALT_MFE</th>
-                                <th scope="col">ALT_MFE_PVAL</th>
                                 <th scope="col">PVAL_LOG_RATIO</th>
                                 <th scope="col">PVAL_OF_LOG_RATIO</th>
-                                <th scope="col">TYPE</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for non_significant_prediction in non_significant_predictions %}
                                 <tr>
                                     <td>{{non_significant_prediction.variant.rsid}}</td>
-                                    <td>{{non_significant_prediction.variant.chr}}</td>
                                     <td>{{non_significant_prediction.variant.ref}}</td>
                                     <td>{{non_significant_prediction.variant.alt}}</td>
                                     <td>{{non_significant_prediction.mirna.name}}</td>
                                     <td>{{non_significant_prediction.ref_mfe|floatformat:4}}</td>
-                                    <td>{{non_significant_prediction.ref_mfe_pval|floatformat:4}}</td>
                                     <td>{{non_significant_prediction.alt_mfe|floatformat:4}}</td>
-                                    <td>{{non_significant_prediction.alt_mfe_pval|floatformat:4}}</td>
                                     <td>{{non_significant_prediction.pval_log_ratio|floatformat:4}}</td>
                                     <td>{{non_significant_prediction.log_ratio_pval|floatformat:4}}</td>
-                                    <td>{{non_significant_prediction.type}}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -127,8 +117,3 @@
 
     </div><!--/row-->
 {%  endblock %}
-
-'snps_outside_utr3': snps_outside_utr3,
-               'snps_without_predictions': snps_without_predictions,
-               'significant_predictions': significant_predictions,
-               'non_significant_predictions': non_significant_predictions,
